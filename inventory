@@ -1,8 +1,14 @@
-[control]
-ubuntu-c ansible_connection=local
+# [control]
+# ubuntu-c ansible_connection=local
 
-[ubuntu]
-ubuntu[1:3] apache_package=apache2 php_package=libapache2-mod-php
+# [ubuntu]
+# ubuntu[1:3]
 
-[centos]
-centos[1:3] apache_package=httpd php_package=php
+# [centos]
+# centos[1:3] 
+
+[web_servers]
+ubuntu1
+
+[db_servers]
+centos1
