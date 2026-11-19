@@ -21,7 +21,7 @@
   become: true
   tasks:
 
-    - name: install apache on Web Servers
+    - name: install apache on Web Servers (Ubuntu)
       tags: apache,ubuntu
       ansible.builtin.apt:
         name:
@@ -29,6 +29,35 @@
           - libapache2-mod-php
       when: ansible_distribution == "Ubuntu"
 
+    - name: install apache on Web Servers (CentOS)
+      tags: apache,centos
+      ansible.builtin.dnf:
+        name: httpd
+      when: ansible_distribution == "CentOS"
+
+    - name: ensure Apache is running (CentOS)
+      tags: apache,centos
+      ansible.builtin.service:
+        name: httpd
+        state: started
+      when: ansible_distribution == "CentOS"
+
+    - name: change email address for Website admin
+      tags: apache,centos
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^ServerAdmin'
+        line: ServerAdmin admin@test.com
+      when: ansible_distribution == "CentOS"
+      register: httpd
+
+    - name: restart httpd (CentOS)
+      tags: apache,centos
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+      when: httpd.changed
+          
     - name: copy html file for site
       tags: apache,ubuntu
       ansible.builtin.copy:

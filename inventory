@@ -9,6 +9,7 @@
 
 [web_servers]
 ubuntu1
+centos1
 
 [db_servers]
 centos1
