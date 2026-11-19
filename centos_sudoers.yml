@@ -1,6 +1,6 @@
 ---
 - name: Configure sudo access for Ansible user
-  hosts: centos1,centos2,centos3
+  hosts: centos1
   gather_facts: false
   become: true
 
